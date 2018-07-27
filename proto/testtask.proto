@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package testtask;
+
+service PlayerService {
+    // CreateNewPlayer creates new player and returns its id.
+    rpc CreateNewPlayer (CreatePlayerRequest) returns (CreatePlayerReply) {}
+    // GetPlayerPoints returns player points.
+    rpc GetPlayerPoints (PlayerIDRequest) returns (PlayerBalanceReply) {}
+    // TakePointsFromPlayer take points from player and returns new balance.
+    rpc TakePointsFromPlayer (PlayerIDPointRequest) returns (PlayerBalanceReply) {}
+    // FundPointsFromPlayer fund points to player and returns new balance.
+    rpc FundPointsToPlayer (PlayerIDPointRequest) returns (PlayerBalanceReply) {}
+    rpc RemovePlayer (PlayerIDRequest) returns (Nothing) {}
+
+}
+// The request message containing player name.
+message CreatePlayerRequest {
+    string name = 1;
+}
+// The response containing player id
+message CreatePlayerReply {
+    int32 id = 1;
+}
+// The request message containing player ID.
+message PlayerIDRequest {
+    int32 playerID = 1;
+}
+// The response message containing player balance.
+message PlayerBalanceReply {
+    float balance = 1;
+}
+// The request message containing player ID and points.
+message PlayerIDPointRequest {
+    int32 playerID = 1;
+    float points = 2;
+}
+
+message Nothing {}
