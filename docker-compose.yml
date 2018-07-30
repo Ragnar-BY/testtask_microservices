@@ -1,0 +1,19 @@
+version: '3'
+services:
+  webserver:
+    build: ./apigateway
+    entrypoint: ./webServer -p players:8081
+    ports:
+      - 8080:8080
+  players:
+    build: ./playerService
+    entrypoint: ./playerService -a db:27017
+    depends_on:
+      - db
+    ports:
+      - 8081:8081
+  db:
+    command: mongod
+    image: mongo
+    ports:
+      - 27017:27017
